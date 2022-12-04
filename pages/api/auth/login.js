@@ -9,7 +9,7 @@ export default function loginHandler(req, res) {
   const datosUser = {
     email: 'admin@local.com',
     password: 'admin',
-    username: 'roberto',
+    username: 'Roberto Martinez Delgado Perez',
     role: 'admin'
   }
 
@@ -20,7 +20,7 @@ export default function loginHandler(req, res) {
         username: datosUser.username,
         role: datosUser.role
       },
-      'secret'
+      process.env.JWT_SECRET_KEY
     ) // usar una variable de entorno env
 
     const serialized = serialize('TokenName', token, {

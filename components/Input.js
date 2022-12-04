@@ -9,7 +9,7 @@ export const Input = ({
   return (
     <input
       className={
-        'py-1 px-3 w-64 rounded-lg font-light text-lg' + ' ' + className
+        'py-2 px-4 w-64 rounded-lg font-extralight text-sm' + ' ' + className
       }
       name={name}
       type={type}

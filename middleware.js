@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 
 export async function middleware(request) {
   const jwt = request.cookies.get('TokenName')
-  const key = new TextEncoder().encode('secret')
+  const key = new TextEncoder().encode(process.env.JWT_SECRET_KEY)
 
   if (jwt === undefined)
     return NextResponse.redirect(new URL('/login', request.url))

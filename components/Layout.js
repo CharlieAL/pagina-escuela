@@ -11,9 +11,19 @@ export default function Layout({ children, user = '' }) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <NavBar user={user} />
-      <div className='grid place-items-center h-screen'>
+      <div className='grid place-items-center h-screen pt-16'>
         <main>{children}</main>
       </div>
+      <style jsx>{`
+        main {
+          display: flex;
+          flex-direction: column;
+          height: 95vh;
+          position: relative;
+          overflow-y: auto;
+          width: 100%;
+        }
+      `}</style>
     </>
   )
 }

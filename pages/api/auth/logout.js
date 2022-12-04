@@ -5,7 +5,7 @@ export default function logOutHandler(req, res) {
   const { TokenName } = req.cookies
   if (!TokenName) return res.status(401).json('no token')
   try {
-    verify(TokenName, 'secret')
+    verify(TokenName, process.env.JWT_SECRET_KEY)
     const serialized = serialize('TokenName', null, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

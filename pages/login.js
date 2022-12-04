@@ -36,9 +36,14 @@ export default function Login() {
     }
   }
   return (
-    <Layout title={'Inicio de Sesion'}>
-      <form className='flex-col justify-center' onSubmit={handleSubmit}>
-        <div className='my-3'>
+    <Layout>
+      <form className='pt-44' onSubmit={handleSubmit}>
+        <div className='text-center  '>
+          <h1 className='text-6xl font-extrabold text-green-600 font-serif'>
+            UTN
+          </h1>
+        </div>
+        <div className='my-3 text-center '>
           <Input
             type={'email'}
             placeholder='email'
@@ -46,7 +51,7 @@ export default function Login() {
             onChange={handleChange}
           />
         </div>
-        <div className='my-3'>
+        <div className='my-3 text-center'>
           <Input
             name='password'
             type={'password'}
@@ -58,6 +63,11 @@ export default function Login() {
           <ButtonGreen>Save</ButtonGreen>
         </div>
       </form>
+      <div className='flex justify-center'>
+        <p className='w-60 text-center break-words font-extralight text-[12px] text-gray-400 pt-16'>
+          su cuenta permanesera abierta en este dispositivo, usted tendra salir
+        </p>
+      </div>
     </Layout>
   )
 }
