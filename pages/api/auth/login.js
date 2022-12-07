@@ -3,10 +3,11 @@ import jwt from 'jsonwebtoken'
 import User from 'models/User'
 
 export default async function loginHandler(req, res) {
-  const { body } = req
+  const { body, method } = req
   const { email, password } = body
-  // checar en la base de datos si existe estas credenciales.
-  // encriptar la contraseña  y hacer verificaciones.
+  if (method !== 'POST') {
+    return res.status(401).json('error')
+  }
   if (!email || !password) {
     return res.status(400).json({ error: 'nombre & contraseña son requeridas' })
   }
@@ -37,7 +38,6 @@ export default async function loginHandler(req, res) {
       res.setHeader('Set-Cookie', serialized)
       return res.json({ role: datosUser.role }, 'login successfully')
     }
-
     return res.status(401).json({ error: 'las credenciales son erroneas' })
   } catch (error) {
     return res.status(500)

@@ -1,13 +1,8 @@
 import axios from 'axios'
 
 async function post(credentials) {
-  try {
-    const response = await axios.post('/api/auth/login', credentials)
-    return response
-  } catch (error) {
-    const { response } = error
-    return response.data
-  }
+  const response = await axios.post('/api/auth/login', credentials)
+  return response
 }
 
 export const getUser = async () => {

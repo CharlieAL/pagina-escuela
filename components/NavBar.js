@@ -101,7 +101,7 @@ export default function NavBar() {
               }}
               className='flex cursor-pointer transition-colors duration-300 font-semibold text-red-600'
             >
-              {user && 'salir'}
+              {user.role && 'salir'}
             </button>
           </div>
         </nav>

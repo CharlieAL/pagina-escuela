@@ -33,20 +33,15 @@ export default function Login() {
       [name]: value
     })
   }
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    const response = await Credentials.post(credentials)
-
-    // const { role } = response.data
-
-    if (response.status === 200) {
-      // if (role === 'admin') {
-      //   router.push('/admin/main')
-      // }
-      router.push('/')
-    } else {
-      showError(response.error)
-    }
+    Credentials.post(credentials)
+      .then((res) => {
+        router.push('/')
+      })
+      .catch((err) => {
+        showError('Credenciales incorrectas')
+      })
   }
   const showError = (text) => {
     toast.current.show({
