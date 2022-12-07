@@ -1,45 +1,50 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import useTimeAgo from '../hook/useTimeAgo'
 
 export default function CardTask({
   emailPara,
   nombreTask,
   status,
-  nombre,
   comentarios,
   area,
   descripcion,
-  user,
-  onClick
+  onClick,
+  diaEntrega
 }) {
-  const [color, setColor] = useState('bg-gray-900')
+  const [color, setColor] = useState('bg-gray-500')
   useEffect(() => {
     if (status === 'pendiente') {
       setColor('bg-yellow-600')
     } else if (status === 'revisado') {
       setColor('bg-green-500')
-    } else if (status === 'noEntregado') {
+    } else if (status === 'erroneo') {
       setColor('bg-[#e10]')
-    } else {
+    } else if (status === 'devuelto') {
       setColor('bg-blue-500')
     }
   }, [status])
-
+  const date = useTimeAgo(diaEntrega)
   return (
     <>
-      <button
+      <a
         onClick={onClick}
-        className={`${color} mx-2 w-60 h-48 relative rounded-lg`}
+        className={`${color} min-w-[350px] w-[350px] mx-5  h-52 relative rounded-lg cursor-pointer snap-always snap-center`}
       >
         {/* card header */}
-        <div className='absolute right-0 font-extralight text-sm  px-2'>
-          {status}
+        <div className='absolute right-0 top-1 font-extralight text-sm  px-2'>
+          {status === '' ? 'Asignado' : status}
         </div>
-        <div className='pt-6 text-center font-bold break-words '>
-          <h1>{nombreTask}</h1>
-          <p className='font-light text-sm p-2'>
-            {descripcion} asdasdasdasdlnfaldnflansflasnlfnlasnflasnfl
-          </p>
+        <div className='absolute left-0 top-1 font-extralight text-sm  px-2'>
+          {status !== 'revisado' && <p>{date}</p>}
+        </div>
+        <div className='pt-6 text-center font-bold  '>
+          <div className='h-10 items-center text-center font-bold break-words '>
+            <h1 className=''>{nombreTask}</h1>
+          </div>
+          <div className='border-dashed border-gray-200/25 border h-16 mx-2 rounded-md'>
+            <p className='font-light text-sm p-1'>{descripcion}</p>
+          </div>
           <p className='font-light text-sm'>{area}</p>
           <p className='font-light text-sm'>{emailPara}</p>
           <p className='font-light text-sm text-gray-300 pt-2'>
@@ -53,7 +58,7 @@ export default function CardTask({
             <button>aceptar</button>
           </div>
         )} */}
-      </button>
+      </a>
     </>
   )
 }

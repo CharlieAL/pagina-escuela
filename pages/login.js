@@ -1,21 +1,26 @@
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import 'primereact/resources/themes/lara-dark-indigo/theme.css' //theme
+import 'primereact/resources/primereact.min.css' //core css
+import 'primeicons/primeicons.css'
+import React, { useEffect, useState, useRef } from 'react'
 import { ButtonGreen, ButtonRed } from '../components/Button'
 import { Input } from '../components/Input'
 import Layout from '../components/Layout'
 import useUser from '../hook/useUser'
 import { Credentials, getUser } from '../service/credentials'
+import { Toast } from 'primereact/toast'
 
 export default function Login() {
   const router = useRouter()
   const user = useUser()
+  const toast = useRef(null)
   const [credentials, setCredentials] = useState({
     email: '',
     password: ''
   })
   useEffect(() => {
     if (user) {
-      router.push('/main')
+      router.push('/')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
@@ -31,12 +36,29 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const response = await Credentials.post(credentials)
+
+    // const { role } = response.data
+
     if (response.status === 200) {
-      router.push('/main')
+      // if (role === 'admin') {
+      //   router.push('/admin/main')
+      // }
+      router.push('/')
+    } else {
+      showError(response.error)
     }
+  }
+  const showError = (text) => {
+    toast.current.show({
+      severity: 'error',
+      summary: 'Error',
+      detail: text,
+      life: 3000
+    })
   }
   return (
     <Layout>
+      <Toast ref={toast} />
       <form className='pt-44' onSubmit={handleSubmit}>
         <div className='text-center  '>
           <h1 className='text-6xl font-extrabold text-green-600 font-serif'>

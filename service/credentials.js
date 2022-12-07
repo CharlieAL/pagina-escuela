@@ -2,7 +2,7 @@ import axios from 'axios'
 
 async function post(credentials) {
   try {
-    const response = await axios.post('api/auth/login', credentials)
+    const response = await axios.post('/api/auth/login', credentials)
     return response
   } catch (error) {
     const { response } = error
@@ -11,7 +11,7 @@ async function post(credentials) {
 }
 
 export const getUser = async () => {
-  const response = await axios.get('api/user')
+  const response = await axios.get('/api/user')
   return response.data
 }
 
