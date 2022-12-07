@@ -17,5 +17,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/main', '/']
+  matcher: ['/', '/compose/user', '/compose/task']
 }
