@@ -24,18 +24,14 @@ export default function NavBar() {
           <div className='flex items-center space-x-5'>
             {/* <!-- Logo --> */}
             <a className='cursor-pointer'>
-              {user === '' ? (
-                <h3 className='text-2xl font-bold   text-green-500'>
-                  Universidad Tecnologica de Nogales
-                </h3>
-              ) : (
-                <h3 className='text-2xl font-bold text-green-500'>U T N</h3>
-              )}
+              <h3 className='text-2xl absolute top-3 mobile:left-10 left-2 font-bold text-green-500'>
+                U T N
+              </h3>
             </a>
           </div>
           {/* <!-- Links Section --> */}
           {user.username && (
-            <div className='items-center hidden space-x-8 lg:flex'>
+            <div className='items-center  space-x-3 flex'>
               <Link
                 href={'/'}
                 className='flex text-gray-400 hover:text-green-500
@@ -77,7 +73,7 @@ export default function NavBar() {
           )}
 
           {/* <!-- Icon Menu Section --> */}
-          <div className='flex items-center space-x-5'>
+          <div className='mobile:flex hidden items-center space-x-5'>
             {/* <!-- Register --> */}
             {/* <a
             className='flex text-gray-600 hover:text-blue-500
@@ -85,7 +81,7 @@ export default function NavBar() {
           >
             Register
           </a> */}
-            <a className='flex  hover:text-green-500 cursor-pointer transition-colors duration-300 items-center space-x-5 font-extralight text-gray-500 text-xs'>
+            <a className='flex  hidd hover:text-green-500 cursor-pointer transition-colors duration-300 items-center space-x-5 font-extralight text-gray-500 text-xs'>
               <h5 className='flex '>{user.username}</h5>
             </a>
             <p className='flex cursor-default transition-colors duration-300 items-center space-x-5 font-extralight text-gray-500 text-xs '>

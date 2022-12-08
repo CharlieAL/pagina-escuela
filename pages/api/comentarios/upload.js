@@ -1,4 +1,6 @@
 import Task from 'models/Task'
+import { dbConnection } from 'utils/db'
+dbConnection()
 
 export default async function handle(req, res) {
   const { method, body } = req

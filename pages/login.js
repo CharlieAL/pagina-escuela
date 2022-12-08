@@ -7,7 +7,7 @@ import { ButtonGreen, ButtonRed } from '../components/Button'
 import { Input } from '../components/Input'
 import Layout from '../components/Layout'
 import useUser from '../hook/useUser'
-import { Credentials, getUser } from '../service/credentials'
+import { Credentials, getUser, post } from '../service/credentials'
 import { Toast } from 'primereact/toast'
 
 export default function Login() {
@@ -35,11 +35,16 @@ export default function Login() {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    Credentials.post(credentials)
+    console.log('post')
+    post(credentials)
       .then((res) => {
+        console.log(res)
+        console.log('si')
         router.push('/')
       })
       .catch((err) => {
+        console.log(err)
+        console.log('error')
         showError('Credenciales incorrectas')
       })
   }

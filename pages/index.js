@@ -63,6 +63,7 @@ export default function Main() {
             setFileName(data.fileName)
           })
           .catch((err) => {
+            console.log(err)
             setFileName(false)
           })
       }

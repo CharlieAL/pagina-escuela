@@ -2,6 +2,8 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 import fs from 'fs'
 import formidable from 'formidable'
 import Task from 'models/Task'
+import { dbConnection } from 'utils/db'
+dbConnection()
 
 const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME
 const AWC_BUCKET_REGION = process.env.AWC_BUCKET_REGION
