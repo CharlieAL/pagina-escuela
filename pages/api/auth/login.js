@@ -47,7 +47,8 @@ export default async function handler(req, res) {
       {
         email: datosUser.email,
         username: datosUser.username,
-        role: datosUser.role
+        role: datosUser.role,
+        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30
       },
       process.env.JWT_SECRET_KEY
     ) // usar una variable de entorno env

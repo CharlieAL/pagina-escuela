@@ -7,6 +7,14 @@ import { ButtonRed } from './Button'
 
 export default function NavBar({ user = '' }) {
   const router = useRouter()
+  async function handleLogout(params) {
+    try {
+      await logOut()
+      router.push('/login')
+    } catch (error) {
+      router.push('/login')
+    }
+  }
   return (
     <>
       <div className='flex flex-col relative '>
@@ -84,11 +92,7 @@ export default function NavBar({ user = '' }) {
           </div>
           {user && (
             <button
-              onClick={() => {
-                logOut()
-                  .then(() => router.push('/login'))
-                  .catch(router.push('/login'))
-              }}
+              onClick={handleLogout}
               className=' absolute mobile:right-10 right-1 top-5  cursor-pointer transition-colors duration-300 font-semibold px-3 rounded-sm bg-red-600 mobile:text-lg'
             >
               salir
