@@ -16,7 +16,7 @@ import { postTask } from 'service/task'
 export default function UserPage() {
   // const [date, setDate] = useState('')
   const router = useRouter()
-  const [user, setUser] = useState({})
+
   const toast = useRef(null)
   const [selectedRole, setSelectedRole] = useState(null)
   const [selectedRole2, setSelectedRole2] = useState(null)
@@ -32,7 +32,6 @@ export default function UserPage() {
   useEffect(() => {
     getUser()
       .then((user) => {
-        setUser(user)
         setDatos({ ...datos, nombre: user.username })
         if (user.role !== 'admin') {
           router.push('/')
@@ -162,6 +161,7 @@ export default function UserPage() {
               onChange={onRoleChange}
               optionLabel='name'
               placeholder='Seleccionar un Docente'
+              panelStyle={{ backgroundColor: '#4B5563', fontWeight: 'lighter' }}
             />
           </div>
           <div className='text-center'>

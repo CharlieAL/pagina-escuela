@@ -22,8 +22,8 @@ const userSchema = new Schema(
       trim: true
     },
     active: {
-      type: Number,
-      default: 1
+      type: Boolean,
+      default: true
     }
   },
   {

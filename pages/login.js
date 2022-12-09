@@ -22,6 +22,7 @@ export default function Login() {
     if (user) {
       router.push('/')
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
@@ -35,11 +36,13 @@ export default function Login() {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('post')
+    const { email, password } = credentials
+    if (email === '' || password === '') {
+      showError('Datos Obligatorios')
+      return
+    }
     post(credentials)
       .then((res) => {
-        console.log(res)
-        console.log('si')
         router.push('/')
       })
       .catch((err) => {
@@ -82,7 +85,7 @@ export default function Login() {
           />
         </div>
         <div className='text-center'>
-          <ButtonGreen>Save</ButtonGreen>
+          <ButtonGreen>Entrar</ButtonGreen>
         </div>
       </form>
       <div className='flex justify-center'>

@@ -33,18 +33,6 @@ export default function MenuTask({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    const timeout = setInterval(() => {
-      setUpdate(!update)
-    }, 5000)
-    return () => clearTimeout(timeout)
-  }, [update])
-
-  useEffect(() => {
-    // 👇️ scroll to bottom every time messages change
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [comentarios, update])
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleUpload(e, mensaje, nombre, id) {
     e.preventDefault()
@@ -56,25 +44,14 @@ export default function MenuTask({
       id
     }
     putComentarios(data)
-      .then((res) => {
-        bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
-      })
+      .then((res) => {})
       .catch((err) => console.log(err))
-    // axios
-    //   .put('/api/task', data, {
-    //     onUploadProgress(e) {
-    //       console.log(Math.round((e.loaded * 1000) / e.total))
-    //     }
-    //   })
-    //   .then((res) => console.log(res))
   }
 
   function pulsar(e) {
     if (e.which === 13 && !e.shiftKey) {
       e.preventDefault()
       handleUpload(e, value, user.username, taskId)
-      console.log('prevented')
-      bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
       return false
     }
   }
@@ -89,7 +66,7 @@ export default function MenuTask({
       .catch((err) => onBasicUploadError())
   }
 
-  const onBasicUpload = () => {
+  const onBasicUpload = (text) => {
     toast.current.show({
       severity: 'info',
       summary: 'Exelente',
@@ -195,7 +172,7 @@ export default function MenuTask({
             ) : status === 'devuelto' || status === '' ? (
               <Formulario id={taskId} />
             ) : status !== 'revisado' ? (
-              <div className='flex items-center justify-center mobile:w-[50%] w-full mobile:h-[500px] h-[200px] space-x-4'>
+              <div className='flex items-center justify-center mobile:w-[50%] w-full mobile:h-[500px] h-[100px] space-x-4'>
                 <p className='text-center text-gray-400 font-light'>
                   Esperado respuesta del Admin
                 </p>
@@ -221,7 +198,7 @@ export default function MenuTask({
               onSubmit={(e) => {
                 handleUpload(e, value, user.username, taskId)
               }}
-              className='flex overflow-y-hidden justify-center items-end pb-10 mobile:w-[50%] w-full mobile:h-[500px] h-[340px] relative mt-5'
+              className='flex overflow-y-hidden justify-center items-end pb-10 mobile:w-[50%] w-full mobile:h-[500px] h-[440px] relative mt-5'
             >
               {comentarios.length === 0 && (
                 <div className='absolute flex flex-row items-center  space-x-2 top-3'>
@@ -234,13 +211,12 @@ export default function MenuTask({
                   ></i>
                 </div>
               )}
-              <div className='flex flex-col absolute top-0 mobile:h-[400px] overscroll-y-contain overflow-y-auto h-56 w-full'>
+              <div className='flex flex-col absolute top-0 mobile:h-[400px] overscroll-y-contain overflow-y-auto h-[325px] w-full'>
                 {comentarios?.map((data, index) => (
                   <div key={index}>
                     <ChatText person={data.nombre} text={data.mensaje} />
                   </div>
                 ))}
-                <div ref={bottomRef} />
               </div>
               <div className='flex flex-row items-center space-x-1'>
                 <textarea

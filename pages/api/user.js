@@ -3,7 +3,9 @@ import { verify } from 'jsonwebtoken'
 export default function userHandler(req, res) {
   const secret = process.env.JWT_SECRET_KEY
   const { TokenName } = req.cookies
-  if (!TokenName) return res.json('no token')
+  if (!TokenName) {
+    return res.json('')
+  }
   try {
     const user = verify(TokenName, secret)
     return res.json(user)

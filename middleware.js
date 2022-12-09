@@ -16,5 +16,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/', '/compose/user', '/compose/task']
+  matcher: ['/', '/compose/user', '/compose/task', '/status/profile']
 }

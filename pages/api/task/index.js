@@ -16,21 +16,6 @@ export default async function taskHandler(req, res) {
     } catch (error) {
       return res.status(500).json(error)
     }
-  } else if (method === 'PUT') {
-    const { data, id } = body
-    console.log(body)
-    try {
-      // const result = await Task.findByIdAndUpdate(
-      //   id,
-      //   { comentarios },
-      //   { new: true }
-      // )
-
-      return res.status(201).json(result)
-    } catch (error) {
-      console.log(error)
-      return res.status(500).json('error')
-    }
   }
   return res.status(401)
 }

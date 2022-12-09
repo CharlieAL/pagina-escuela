@@ -17,11 +17,19 @@ export default async function handler(req, res) {
     }
   } else if (method === 'GET') {
     try {
-      const users = await User.find()
+      const user = await User.find()
 
-      return res.status(200).json(users)
+      return res.status(200).json(user)
     } catch (error) {
       return res.status(500).json(error)
+    }
+  } else if (method === 'PUT') {
+    const { id } = body
+    try {
+      const result = await User.findByIdAndUpdate(id, body, { new: true })
+      return res.status(200).json(result)
+    } catch (error) {
+      return res.status(500).json('bad')
     }
   } else {
     return res.status(401)

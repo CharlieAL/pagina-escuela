@@ -29,7 +29,7 @@ export default function CardTask({
     <>
       <a
         onClick={onClick}
-        className={`${color} min-w-[350px] w-[350px] mx-5  h-52 relative rounded-lg cursor-pointer snap-always snap-center`}
+        className={`${color} min-w-[240px] w-[240px] mobile:my-5 m-1 mx-3 h-52 relative rounded-lg cursor-pointer snap-always snap-center`}
       >
         {/* card header */}
         <div className='absolute right-0 top-1 font-extralight text-sm  px-2'>

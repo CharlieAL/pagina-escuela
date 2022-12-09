@@ -7,6 +7,11 @@ export async function getTask() {
   }
 }
 
+export async function putTask(params) {
+  const res = await axios.put('/api/task', params)
+  return res
+}
+
 export async function postTask(params) {
   const response = await axios.post('/api/task', params)
   return response

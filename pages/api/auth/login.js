@@ -10,11 +10,20 @@ export default async function handler(req, res) {
   const { email, password } = body
 
   User.findOne({ email }, function (erro, datosUser) {
-    console.log(datosUser)
     if (erro) {
       return res.status(500).json({
         ok: false,
         err: erro
+      })
+    }
+
+    // Verifica que exista un usuario con el mail escrita por el usuario.
+    if (!datosUser) {
+      return res.status(400).json({
+        ok: false,
+        err: {
+          message: 'Usuario o contraseña incorrectos'
+        }
       })
     }
     if (!datosUser.active) {
@@ -22,15 +31,6 @@ export default async function handler(req, res) {
         ok: false,
         err: {
           message: 'Usuario no tiene permiso'
-        }
-      })
-    }
-    // Verifica que exista un usuario con el mail escrita por el usuario.
-    if (!datosUser) {
-      return res.status(400).json({
-        ok: false,
-        err: {
-          message: 'Usuario o contraseña incorrectos'
         }
       })
     }

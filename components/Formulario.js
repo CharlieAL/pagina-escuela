@@ -15,7 +15,6 @@ export default function Formulario({ id }) {
       summary: 'Exelente',
       detail: 'Archivo subido'
     })
-    console.log(e)
   }
 
   return (

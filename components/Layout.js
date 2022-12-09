@@ -1,8 +1,16 @@
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getUser } from 'service/credentials'
 import NavBar from './NavBar'
 
-export default function Layout({ children, user = '' }) {
+export default function Layout({ children }) {
+  const [user, setUser] = useState('')
+  useEffect(() => {
+    getUser().then((res) => {
+      setUser(res)
+    })
+  }, [])
+
   return (
     <>
       <Head>
@@ -13,12 +21,12 @@ export default function Layout({ children, user = '' }) {
       <div>
         <NavBar user={user} />
       </div>
-      <div className='grid place-items-center h-[80vh]'>
+      <div className='grid place-items-center '>
         <main>{children}</main>
       </div>
       <style jsx>{`
         main {
-          height: 80vh;
+          height: 100vh;
           overflow-y: hidden;
           width: 100%;
         }

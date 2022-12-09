@@ -14,8 +14,8 @@ export default function logOutHandler(req, res) {
       path: '/'
     })
     res.setHeader('Set-Cookie', serialized)
-    return res.status(200).json('logout exitoso').end()
+    return res.status(200).json('logout exitoso')
   } catch (error) {
-    return res.status(401).json('token invalido').end()
+    return res.status(401).json('token invalido')
   }
 }

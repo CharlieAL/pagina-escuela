@@ -5,75 +5,73 @@ import { getUser } from '../service/credentials'
 import { logOut } from '../service/logOut'
 import { ButtonRed } from './Button'
 
-export default function NavBar() {
-  const [user, setUser] = useState({})
-  useEffect(() => {
-    getUser().then(setUser)
-  }, [])
+export default function NavBar({ user = '' }) {
   const router = useRouter()
   return (
     <>
-      <div className='flex flex-col '>
+      <div className='flex flex-col relative '>
         {/* // <!-- Navbar --> */}
         <nav
-          className='flex justify-around py-4 bg-white/5
+          className='flex justify-around h-16  bg-white/5
             backdrop-blur-md shadow-md w-full
-             top-0 left-0 right-0 z-40'
+             top-0 left-0 right-0 z-40 '
         >
           {/* <!-- Logo Container --> */}
-          <div className='flex items-center space-x-5'>
+          <div className='absolute items-center  top-4 left-2 mobile:left-10 lg:flex hidden '>
             {/* <!-- Logo --> */}
             <a className='cursor-pointer'>
-              <h3 className='text-2xl absolute top-3 mobile:left-10 left-2 font-bold text-green-500'>
-                U T N
-              </h3>
+              <h3 className='text-2xl  le font-bold text-green-500 '>U T N</h3>
             </a>
           </div>
           {/* <!-- Links Section --> */}
-          {user.username && (
-            <div className='items-center  space-x-3 flex'>
+          {user && (
+            <div className='flex flex-row items-center mobile:ml-10 ml-2 justify-start mobile:w-[540px]  space-x-6 w-full'>
               <Link
                 href={'/'}
-                className='flex text-gray-400 hover:text-green-500
-                    cursor-pointer transition-colors duration-300 font-extralight text-xs'
+                className=' text-gray-400 hover:text-green-500
+                    cursor-pointer transition-colors duration-300 font-extrabold mobile:text-sm text-xs'
               >
-                Home
+                Menu
               </Link>
               {user.role === 'admin' ? (
                 <>
                   <Link
+                    href={'/compose/user'}
+                    className='flex text-gray-400 hover:text-green-500
+                    cursor-pointer transition-colors duration-300 font-extralight mobile:text-sm text-xs'
+                  >
+                    Nuevo U
+                  </Link>
+                  <Link
                     href={'/compose/task'}
                     className='flex text-gray-400 hover:text-green-500
-                    cursor-pointer transition-colors duration-300 font-extralight text-xs'
+                    cursor-pointer transition-colors duration-300 font-extralight mobile:text-sm text-xs'
                   >
-                    Crear una Tarea
+                    Nuevo T
                   </Link>
+
                   <Link
-                    href={'/compose/user'}
+                    href={'/status/profile'}
                     className='flex text-gray-400 hover:text-green-500
-                    cursor-pointer transition-colors duration-300 font-extralight text-xs'
+                    cursor-pointer transition-colors duration-300 font-extralight mobile:text-sm text-xs'
                   >
-                    Crear un Usuario
+                    Usuarios
                   </Link>
+                  <p
+                    className='mobile:flex hidden text-gray-400 hover:text-green-500
+                    cursor-pointer transition-colors duration-300 font-extralight mobile:text-sm text-xs'
+                  >
+                    {user.username} / {user.role}
+                  </p>
                 </>
               ) : (
-                <>
-                  <a
-                    className='flex text-gray-400 hover:text-green-500
-                    cursor-pointer transition-colors duration-300 font-extralight text-xs'
-                  ></a>
-                  <Link
-                    href={'/compose/user'}
-                    className='flex text-gray-400 hover:text-green-500
-                    cursor-pointer transition-colors duration-300 font-extralight text-xs'
-                  ></Link>
-                </>
+                <></>
               )}
             </div>
           )}
 
           {/* <!-- Icon Menu Section --> */}
-          <div className='mobile:flex hidden items-center space-x-5'>
+          <div className='mobile:flex hidden items-center space-x-5 relative'>
             {/* <!-- Register --> */}
             {/* <a
             className='flex text-gray-600 hover:text-blue-500
@@ -81,25 +79,21 @@ export default function NavBar() {
           >
             Register
           </a> */}
-            <a className='flex  hidd hover:text-green-500 cursor-pointer transition-colors duration-300 items-center space-x-5 font-extralight text-gray-500 text-xs'>
-              <h5 className='flex '>{user.username}</h5>
-            </a>
-            <p className='flex cursor-default transition-colors duration-300 items-center space-x-5 font-extralight text-gray-500 text-xs '>
-              {user.role}
-            </p>
 
             {/* <!-- Login --> */}
+          </div>
+          {user && (
             <button
               onClick={() => {
                 logOut()
                   .then(() => router.push('/login'))
                   .catch(router.push('/login'))
               }}
-              className='flex cursor-pointer transition-colors duration-300 font-semibold text-red-600'
+              className=' absolute mobile:right-10 right-1 top-5  cursor-pointer transition-colors duration-300 font-semibold px-3 rounded-sm bg-red-600 mobile:text-lg'
             >
-              {user.role && 'salir'}
+              salir
             </button>
-          </div>
+          )}
         </nav>
       </div>
     </>

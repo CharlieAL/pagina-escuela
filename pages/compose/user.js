@@ -5,12 +5,19 @@ import { Button } from 'primereact/button'
 import 'primereact/resources/themes/lara-dark-indigo/theme.css' //theme
 import 'primereact/resources/primereact.min.css' //core css
 import 'primeicons/primeicons.css'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Layout from '../../components/Layout'
 import { Input } from '../../components/Input'
 import { postUser } from 'service/user'
+import { getUser } from 'service/credentials'
 export default function UserPage() {
   // const [date, setDate] = useState('')
+  const [user, setUser] = useState({})
+  useEffect(() => {
+    getUser()
+      .then(setUser)
+      .catch((err) => console.log(err))
+  }, [])
   const toast = useRef(null)
   const [selectedRole, setSelectedRole] = useState(null)
   const [datos, setDatos] = useState({
@@ -82,7 +89,7 @@ export default function UserPage() {
     })
   }
   return (
-    <Layout>
+    <Layout user={user}>
       <Toast ref={toast} style={{ width: 900, height: '5px' }} />
       <div className='flex h-[80vh] justify-center items-center'>
         {/* <Calendar
@@ -127,16 +134,20 @@ export default function UserPage() {
           <div className='text-center'>
             <p className='font-extralight text-sm'>Rol para el usuario</p>
             <Dropdown
+              style={{ backgroundColor: '#4B5563', fontWeight: 'lighter' }}
               value={selectedRole}
               options={roles}
               onChange={onRoleChange}
               optionLabel='name'
               placeholder='Seleccionar un Rol'
+              panelStyle={{ backgroundColor: '#4B5563', fontWeight: 'lighter' }}
             />
           </div>
           <div className='text-center'>
             <p className='font-extralight text-sm'>Fecha de Salida</p>
             <Calendar
+              inputStyle={{ backgroundColor: '#4B5563', fontWeight: 'lighter' }}
+              panelStyle={{ backgroundColor: '#4B5563', fontWeight: 'lighter' }}
               id='buttonbar'
               value={datos.fechaDeSalida}
               onChange={(e) => setDatos({ ...datos, fechaDeSalida: e.value })}
