@@ -28,7 +28,7 @@ export default function Main() {
   const [selectTask, setSelectTask] = useState({})
   const [taskState, setTaskState] = useState(false)
   const [fileName, setFileName] = useState('cargando')
-  const [update, setUpdate] = useState(false)
+  const [type, setType] = useState('')
 
   useEffect(() => {
     getUser().then(setUser)
@@ -54,19 +54,20 @@ export default function Main() {
       .catch((error) => console.log(error))
   }, [user.email, user.role, taskState])
 
+  function getType(url) {
+    const type = url.split('/').reverse()
+    return type[0]
+  }
+
   function handleTask(data) {
+    console.log(data)
     setTaskState(!taskState)
     if (!taskState) {
       setSelectTask(data)
       if (user.role === 'admin') {
-        getFile(data.fileName)
-          .then((res) => {
-            setFileName(data.fileName)
-          })
-          .catch((err) => {
-            console.log(err)
-            setFileName(false)
-          })
+        setFileName(data.fileName)
+        const type = getType(data.fileName)
+        setType(type)
       }
     } else {
       setSelectTask({})
@@ -105,6 +106,7 @@ export default function Main() {
             fileName={fileName}
             taskId={selectTask.id}
             user={user}
+            type={type}
           />
         </div>
       )}

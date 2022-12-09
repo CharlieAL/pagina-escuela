@@ -36,18 +36,23 @@ export default async function handleAws(req, res) {
       }
       try {
         const steam = fs.createReadStream(files.demo.filepath)
+        const originalFilename = files.demo.originalFilename
+        // console.log(steam)
         const input = {
           Bucket: AWS_BUCKET_NAME,
-          Key: files.demo.originalFilename,
+          Key: originalFilename,
           Body: steam
         }
+        const url = `https://utnservicioporcarlos.s3.us-west-1.amazonaws.com/${originalFilename}`
         const command = new PutObjectCommand(input)
+        // console.log('command', command)
         const response = await client.send(command)
+        // console.log('response', response)
         // guardar nombre en bd
         const result = await Task.findByIdAndUpdate(
           id,
           {
-            fileName: files.demo.originalFilename,
+            fileName: url,
             status: 'pendiente'
           },
           { new: true }

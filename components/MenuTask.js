@@ -14,7 +14,8 @@ export default function MenuTask({
   status,
   user,
   fileName,
-  taskId
+  taskId,
+  type
 }) {
   const bottomRef = useRef(null)
   const toast = useRef(null)
@@ -74,14 +75,6 @@ export default function MenuTask({
     })
   }
 
-  const onBasicUploadError = (e) => {
-    toast.current.show({
-      severity: 'warn',
-      summary: 'Fallo',
-      detail: 'Intente más tarde'
-    })
-  }
-
   return (
     <>
       <div id='menuContainer' className='z-20 overflow-hidden '>
@@ -112,11 +105,10 @@ export default function MenuTask({
                         <Link
                           href={fileName}
                           download
-                          target='_blank'
                           className='bg-blue-500 py-2 px-6 rounded-lg'
                         >
                           <div className='flex items-center space-x-2 justify-center'>
-                            <p className='text-center'>{fileName} </p>
+                            <p className='text-center'>{type} </p>
                             <i
                               className='pi pi-download
                           items-center'

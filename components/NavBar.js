@@ -12,6 +12,7 @@ export default function NavBar({ user = '' }) {
       await logOut()
       router.push('/login')
     } catch (error) {
+      console.log(error)
       router.push('/login')
     }
   }
@@ -22,7 +23,7 @@ export default function NavBar({ user = '' }) {
         <nav
           className='flex justify-around h-16  bg-white/5
             backdrop-blur-md shadow-md w-full
-             top-0 left-0 right-0 z-40 '
+              z-40 '
         >
           {/* <!-- Logo Container --> */}
           <div className='absolute items-center  top-4 left-2 mobile:left-10 lg:flex hidden '>
