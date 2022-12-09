@@ -4,7 +4,7 @@ import fs from 'fs'
 const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME
 const AWC_BUCKET_REGION = process.env.AWC_BUCKET_REGION
 const AWS_PUBLIC_KEY = process.env.AWS_PUBLIC_KEY
-const AWS_SECRET_KEY = process.env.AWS_SECRET_KEY
+const AWS_SECRET_KEY = process.env.AWS_PRIVATE_KEY
 
 const client = new S3Client({
   region: AWC_BUCKET_REGION,
